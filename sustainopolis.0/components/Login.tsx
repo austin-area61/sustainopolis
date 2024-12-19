@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,15 +27,17 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div
-      className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: 'url("/images/bg image.jpg")',
-        backgroundSize: "cover",
-      }}
-    >
-      <div className="absolute inset-0 bg-black opacity-50 backdrop-blur-sm"></div>
-      <div className="relative z-10 w-full max-w-6xl flex bg-white bg-opacity-90 shadow-xl rounded-lg overflow-hidden">
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      <Image
+        src="/images/bg-image.jpg"
+        alt="Sustainopolis Background"
+        fill
+        className="object-cover"
+        quality={100}
+        priority
+      />
+      <div className="absolute inset-0 bg-black opacity-5 backdrop-blur-sm"></div>
+      <div className="relative z-10 w-full max-w-6xl flex bg-white bg-opacity-60 shadow-xl rounded-lg overflow-hidden">
         {/* Left side - App description */}
         <div className="w-1/2 p-8 flex flex-col justify-center">
           <h1 className="text-4xl font-bold mb-4 text-green-800">
