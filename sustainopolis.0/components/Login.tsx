@@ -1,33 +1,38 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import { useAuth } from "../contexts/AuthContext";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Facebook, Leaf, LogIn, Mail } from "lucide-react";
+// Import necessary libraries and components
+import React, { useState } from "react"; // React and useState hook for managing state
+import Image from "next/image"; // Next.js Image component for optimized images
+import { useAuth } from "../contexts/AuthContext"; // Custom hook for authentication context
+import { Button } from "@/components/ui/button"; // UI component for buttons
+import { Input } from "@/components/ui/input"; // UI component for input fields
+import { Label } from "@/components/ui/label"; // UI component for labels
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"; // UI components for tabs
+import { Facebook, Leaf, LogIn, Mail } from "lucide-react"; // Icon components from lucide-react
 
+// Define the interface for the component props
 interface LoginProps {
-  onLoginSuccess: () => void;
+  onLoginSuccess: () => void; // Function to call on successful login
 }
 
+// Define the Login component
 const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { login } = useAuth();
+  const [email, setEmail] = useState(""); // State for email input
+  const [password, setPassword] = useState(""); // State for password input
+  const { login } = useAuth(); // Get the login function from auth context
 
+  // Handle form submission and catch errors  by try catch method
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     try {
-      await login(email, password);
-      onLoginSuccess();
+      await login(email, password); // Attempt to log in with email and password
+      onLoginSuccess(); // Call the onLoginSuccess function on successful login
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login failed:", error); // Log any errors
     }
   };
 
   return (
     <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      {/* Background image */}
       <Image
         src="/images/bg-image.jpg"
         alt="Sustainopolis Background"
@@ -36,7 +41,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         quality={100}
         priority
       />
+      {/* Overlay for background image */}
       <div className="absolute inset-0 bg-black opacity-5 backdrop-blur-sm"></div>
+      {/* Main container */}
       <div className="relative z-10 w-full max-w-6xl flex bg-white bg-opacity-60 shadow-xl rounded-lg overflow-hidden">
         {/* Left side - App description */}
         <div className="w-1/2 p-8 flex flex-col justify-center">
@@ -44,6 +51,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
             Welcome to Sustainopolis
           </h1>
           <div className="flex items-center mb-6">
+            {/* Icons for visual appeal */}
             <Leaf className="w-8 h-8 text-green-500 mr-2" />
             <Leaf className="w-8 h-8 text-green-600" />
             <Leaf className="w-8 h-8 text-green-700 ml-2" />
