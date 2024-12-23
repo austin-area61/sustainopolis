@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Award, Clock, Settings, Zap } from "lucide-react";
+import { Award, Clock, Settings, Zap, RefreshCw } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,10 +19,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { getRandomAvatar } from "../utils/avatarGenerator";
 
 const Profile: React.FC = () => {
   const { user, updateUser } = useAuth();
-  const [isEditing, setIsEditing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState(user?.name || "");
   const [avatar, setAvatar] = useState(user?.avatar || "");
   const [about, setAbout] = useState(user?.about || "");
@@ -35,7 +36,14 @@ const Profile: React.FC = () => {
         avatar,
         about,
       });
-      setIsEditing(false);
+      setIsOpen(false);
+    }
+  };
+
+  const generateRandomAvatar = () => {
+    if (user) {
+      const newAvatar = getRandomAvatar(user.interests);
+      setAvatar(newAvatar);
     }
   };
 
@@ -49,13 +57,17 @@ const Profile: React.FC = () => {
             </CardTitle>
             <CardDescription>Sustainability Novice</CardDescription>
           </div>
-          <Dialog>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setIsOpen(true)}
+              >
                 <Settings size={24} className="text-gray-600" />
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="bg-white">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
                 <DialogDescription>
@@ -84,11 +96,16 @@ const Profile: React.FC = () => {
                   >
                     Avatar URL
                   </label>
-                  <Input
-                    id="avatar"
-                    value={avatar}
-                    onChange={(e) => setAvatar(e.target.value)}
-                  />
+                  <div className="flex space-x-2">
+                    <Input
+                      id="avatar"
+                      value={avatar}
+                      onChange={(e) => setAvatar(e.target.value)}
+                    />
+                    <Button onClick={generateRandomAvatar} size="icon">
+                      <RefreshCw size={16} />
+                    </Button>
+                  </div>
                 </div>
                 <div className="space-y-2">
                   <label
