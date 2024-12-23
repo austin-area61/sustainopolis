@@ -7,9 +7,18 @@ import CitySimulation from "./CitySimulation";
 import Profile from "./Profile";
 import Login from "./Login";
 import Onboarding from "./Onboarding";
+import dynamic from "next/dynamic";
 import GlobalChallenges from "./GlobalChallenges";
 import RealLifeImpact from "./RealLifeImpact";
-import { AnimatePresence, motion } from "framer-motion";
+
+const motion = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion),
+  { ssr: false }
+);
+const AnimatePresence = dynamic(
+  () => import("framer-motion").then((mod) => mod.AnimatePresence),
+  { ssr: false }
+);
 
 const AppContent: React.FC = () => {
   const { user } = useAuth();

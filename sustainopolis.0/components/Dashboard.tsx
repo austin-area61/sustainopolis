@@ -36,6 +36,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   const currentCourse = user?.selectedCourses?.[0] || {
     name: "No course selected",
     progress: 0,
+    id: null,
   };
 
   return (

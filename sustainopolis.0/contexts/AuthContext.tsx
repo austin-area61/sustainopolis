@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
 interface User {
   id: string;
@@ -6,6 +6,7 @@ interface User {
   email: string;
   interests: string[];
   recommendedCourse: string | null;
+  selectedCourses: { name: string; progress: number }[];
 }
 
 interface AuthContextType {
@@ -17,18 +18,21 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(null);
 
   const login = async (email: string, password: string) => {
     // In a real app, you would validate credentials against a backend
     // For this example, we'll just set a mock user
     setUser({
-      id: '1',
-      name: 'Eco Warrior',
+      id: "1",
+      name: "Eco Warrior",
       email: email,
       interests: [],
       recommendedCourse: null,
+      selectedCourses: [],
     });
   };
 
@@ -50,8 +54,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
-
