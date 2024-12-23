@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getRandomAvatar } from "/utils/avatarGenerator";
+import { getRandomAvatar } from "../utils/avatarGenerator";
 
 const Profile: React.FC = () => {
   const { user, updateUser } = useAuth();
