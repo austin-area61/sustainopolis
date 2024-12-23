@@ -16,6 +16,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   updateUser: (user: Partial<User>) => void;
+  deleteAccount: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -53,8 +54,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     });
   };
 
+  const deleteAccount = () => {
+    // In a real app, you would send a request to your backend to delete the user's account
+    // For this example, we'll just set the user to null
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, updateUser }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, updateUser, deleteAccount }}
+    >
       {children}
     </AuthContext.Provider>
   );

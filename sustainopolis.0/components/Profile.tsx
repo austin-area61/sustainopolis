@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Award, Clock, Settings, Zap, RefreshCw } from "lucide-react";
+import {
+  Award,
+  Clock,
+  Settings,
+  Zap,
+  RefreshCw,
+  LogOut,
+  Trash2,
+} from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,10 +27,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { getRandomAvatar } from "../utils/avatarGenerator";
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, logout, deleteAccount } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState(user?.name || "");
   const [avatar, setAvatar] = useState(user?.avatar || "");
@@ -45,6 +64,14 @@ const Profile: React.FC = () => {
       const newAvatar = getRandomAvatar(user.interests);
       setAvatar(newAvatar);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccount();
   };
 
   return (
@@ -219,6 +246,38 @@ const Profile: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      <div className="flex justify-between">
+        <Button
+          variant="outline"
+          onClick={handleLogout}
+          className="flex items-center"
+        >
+          <LogOut className="mr-2 h-4 w-4" /> Logout
+        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive" className="flex items-center">
+              <Trash2 className="mr-2 h-4 w-4" /> Delete Account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDeleteAccount}>
+                Yes, delete my account
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </div>
   );
 };
