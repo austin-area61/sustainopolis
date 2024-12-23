@@ -7,13 +7,15 @@ interface User {
   interests: string[];
   recommendedCourse: string | null;
   selectedCourses: { name: string; progress: number }[];
+  avatar: string;
+  about: string;
 }
 
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  updateUser: (user: User) => void;
+  updateUser: (user: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,6 +35,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       interests: [],
       recommendedCourse: null,
       selectedCourses: [],
+      avatar: "",
+      about: "",
     });
   };
 
@@ -40,8 +44,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setUser(null);
   };
 
-  const updateUser = (updatedUser: User) => {
-    setUser(updatedUser);
+  const updateUser = (updatedUser: Partial<User>) => {
+    setUser((prevUser) => {
+      if (prevUser) {
+        return { ...prevUser, ...updatedUser };
+      }
+      return null;
+    });
   };
 
   return (

@@ -75,9 +75,14 @@ const Layout: React.FC<LayoutProps> = ({
             {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
           </h2>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Welcome, {user?.name}</span>
+            <button
+              className="text-sm text-gray-600 hover:text-green-600 transition-colors"
+              onClick={() => onTabChange("profile")}
+            >
+              Welcome, {user?.name}
+            </button>
             <img
-              src="/placeholder.svg?height=32&width=32"
+              src={user?.avatar || "/placeholder.svg?height=32&width=32"}
               alt="User Avatar"
               className="w-8 h-8 rounded-full"
             />
