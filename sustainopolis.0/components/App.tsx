@@ -7,14 +7,15 @@ import CitySimulation from "./CitySimulation";
 import Profile from "./Profile";
 import Login from "./Login";
 import Onboarding from "./Onboarding";
-import dynamic from "next/dynamic";
 import GlobalChallenges from "./GlobalChallenges";
 import RealLifeImpact from "./RealLifeImpact";
+import dynamic from "next/dynamic";
 
-const motion = dynamic(
-  () => import("framer-motion").then((mod) => mod.motion),
+const MotionDiv = dynamic(
+  () => import("framer-motion").then((mod) => mod.motion.div),
   { ssr: false }
 );
+
 const AnimatePresence = dynamic(
   () => import("framer-motion").then((mod) => mod.AnimatePresence),
   { ssr: false }
@@ -58,7 +59,7 @@ const AppContent: React.FC = () => {
   return (
     <Layout activeTab={activeTab} onTabChange={handleTabChange}>
       <AnimatePresence mode="wait">
-        <motion.div
+        <MotionDiv
           key={activeTab}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -78,7 +79,7 @@ const AppContent: React.FC = () => {
           {activeTab === "profile" && <Profile />}
           {activeTab === "challenges" && <GlobalChallenges />}
           {activeTab === "impact" && <RealLifeImpact />}
-        </motion.div>
+        </MotionDiv>
       </AnimatePresence>
     </Layout>
   );
