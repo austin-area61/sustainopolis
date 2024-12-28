@@ -10,6 +10,7 @@ import Onboarding from "./Onboarding";
 import GlobalChallenges from "./GlobalChallenges";
 import RealLifeImpact from "./RealLifeImpact";
 import dynamic from "next/dynamic";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 const MotionDiv = dynamic(
   () => import("framer-motion").then((mod) => mod.motion.div),
@@ -113,7 +114,9 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <AppContent />
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
     </AuthProvider>
   );
 };
