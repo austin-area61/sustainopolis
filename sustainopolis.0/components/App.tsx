@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
@@ -27,6 +27,17 @@ const AppContent: React.FC = () => {
     "dashboard" | "courses" | "simulation" | "profile" | "challenges" | "impact"
   >("dashboard");
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      setIsLoggingIn(true);
+      const timer = setTimeout(() => {
+        setIsLoggingIn(false);
+      }, 500); // Adjust this timing to match your transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
 
   const handleTabChange = (
     tab:
@@ -49,7 +60,15 @@ const AppContent: React.FC = () => {
   };
 
   if (!user) {
-    return <Login onLoginSuccess={handleLoginSuccess} />;
+    return (
+      <div
+        className={`transition-opacity duration-500 ${
+          isLoggingIn ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <Login onLoginSuccess={handleLoginSuccess} />
+      </div>
+    );
   }
 
   if (showOnboarding) {
