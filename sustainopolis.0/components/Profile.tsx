@@ -26,7 +26,6 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -72,7 +71,7 @@ const Profile: React.FC = () => {
     setIsLoggingOut(true);
     setTimeout(() => {
       logout();
-    }, 500); // Adjust this timing to match your transition duration
+    }, 500);
   };
 
   const handleDeleteAccount = () => {
@@ -262,7 +261,10 @@ const Profile: React.FC = () => {
         <div className="flex justify-between">
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" className="flex items-center">
+              <Button
+                variant="outline"
+                className="flex items-center hover:bg-red-100 hover:text-red-600 transition-colors"
+              >
                 <LogOut className="mr-2 h-4 w-4" /> Logout
               </Button>
             </DialogTrigger>
@@ -281,13 +283,21 @@ const Profile: React.FC = () => {
                 >
                   Cancel
                 </Button>
-                <Button onClick={handleLogout}>Logout</Button>
+                <Button
+                  onClick={handleLogout}
+                  className="hover:bg-red-600 transition-colors"
+                >
+                  Logout
+                </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" className="flex items-center">
+              <Button
+                variant="destructive"
+                className="flex items-center hover:bg-red-700 transition-colors"
+              >
                 <Trash2 className="mr-2 h-4 w-4" /> Delete Account
               </Button>
             </AlertDialogTrigger>
@@ -301,7 +311,10 @@ const Profile: React.FC = () => {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteAccount}>
+                <AlertDialogAction
+                  onClick={handleDeleteAccount}
+                  className="hover:bg-red-600 transition-colors"
+                >
                   Yes, delete my account
                 </AlertDialogAction>
               </AlertDialogFooter>

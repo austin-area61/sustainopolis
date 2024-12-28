@@ -30,11 +30,12 @@ const AppContent: React.FC = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
-    if (!user) {
+    if (user) {
       setIsLoggingIn(true);
       const timer = setTimeout(() => {
         setIsLoggingIn(false);
-      }, 500); // Adjust this timing to match your transition duration
+        setActiveTab("dashboard");
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [user]);
@@ -52,11 +53,16 @@ const AppContent: React.FC = () => {
   };
 
   const handleLoginSuccess = () => {
-    setShowOnboarding(true);
+    if (user && user.interests.length === 0) {
+      setShowOnboarding(true);
+    } else {
+      setActiveTab("dashboard");
+    }
   };
 
   const handleOnboardingComplete = () => {
     setShowOnboarding(false);
+    setActiveTab("dashboard");
   };
 
   if (!user) {
