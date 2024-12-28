@@ -85,10 +85,10 @@ const Profile: React.FC = () => {
       }`}
     >
       <div className="space-y-6">
-        <Card>
+        <Card className="bg-card text-card-foreground">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
-              <CardTitle className="text-2xl font-bold text-green-800">
+              <CardTitle className="text-2xl font-bold">
                 {user?.name || "Eco Warrior"}
               </CardTitle>
               <CardDescription>Sustainability Novice</CardDescription>
@@ -177,7 +177,7 @@ const Profile: React.FC = () => {
         </Card>
 
         <div className="grid grid-cols-2 gap-4">
-          <Card>
+          <Card className="bg-card text-card-foreground">
             <CardHeader>
               <CardTitle>Total Learning Hours</CardTitle>
             </CardHeader>
@@ -188,7 +188,7 @@ const Profile: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="bg-card text-card-foreground">
             <CardHeader>
               <CardTitle>Badges Earned</CardTitle>
             </CardHeader>
@@ -201,7 +201,7 @@ const Profile: React.FC = () => {
           </Card>
         </div>
 
-        <Card>
+        <Card className="bg-card text-card-foreground">
           <CardHeader>
             <CardTitle>City Sustainability Score</CardTitle>
           </CardHeader>
@@ -218,7 +218,7 @@ const Profile: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-card text-card-foreground">
           <CardHeader>
             <CardTitle>Current Streak</CardTitle>
           </CardHeader>
@@ -237,7 +237,7 @@ const Profile: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-card text-card-foreground">
           <CardHeader>
             <CardTitle>Interests</CardTitle>
           </CardHeader>
