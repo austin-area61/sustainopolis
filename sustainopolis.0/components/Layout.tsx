@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import ThemeToggle from "./ThemeToggle";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -76,8 +75,12 @@ const Layout: React.FC<LayoutProps> = ({
             {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
           </h2>
           <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <span className="text-sm">Welcome, {user?.name}</span>
+            <button
+              className="text-sm text-gray-600 hover:text-green-600 transition-colors"
+              onClick={() => onTabChange("profile")}
+            >
+              Welcome, {user?.name}
+            </button>
             <img
               src={user?.avatar || "/placeholder.svg?height=32&width=32"}
               alt="User Avatar"
