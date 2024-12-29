@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Home,
@@ -9,6 +11,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -47,9 +50,9 @@ const Layout: React.FC<LayoutProps> = ({
   ];
 
   return (
-    <div className="flex h-screen bg-green-50">
+    <div className="flex h-screen bg-background text-foreground">
       {/* Sidebar for desktop */}
-      <div className="hidden md:flex flex-col w-64 bg-green-600 text-white p-4">
+      <div className="hidden md:flex flex-col w-64 bg-card text-card-foreground p-4">
         <h1 className="text-2xl font-bold mb-8">Sustainopolis</h1>
         <nav className="space-y-4">
           {navItems.map((item) => (
@@ -57,7 +60,9 @@ const Layout: React.FC<LayoutProps> = ({
               key={item.name}
               variant="ghost"
               className={`flex items-center space-x-2 w-full justify-start ${
-                activeTab === item.name ? "bg-green-700" : "hover:bg-green-500"
+                activeTab === item.name
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-secondary hover:text-secondary-foreground"
               }`}
               onClick={() => onTabChange(item.name as any)}
             >
@@ -70,13 +75,14 @@ const Layout: React.FC<LayoutProps> = ({
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white shadow-sm p-4 flex justify-between items-center">
-          <h2 className="text-2xl font-semibold text-green-800">
+        <header className="bg-card text-card-foreground shadow-sm p-4 flex justify-between items-center">
+          <h2 className="text-2xl font-semibold">
             {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
           </h2>
           <div className="flex items-center space-x-4">
+            <ThemeToggle />
             <button
-              className="text-sm text-gray-600 hover:text-green-600 transition-colors"
+              className="text-sm hover:text-primary transition-colors"
               onClick={() => onTabChange("profile")}
             >
               Welcome, {user?.name}
@@ -91,13 +97,15 @@ const Layout: React.FC<LayoutProps> = ({
         <main className="flex-1 overflow-y-auto p-4">{children}</main>
 
         {/* Bottom navigation for mobile */}
-        <nav className="md:hidden flex justify-around bg-green-600 text-white py-2">
+        <nav className="md:hidden flex justify-around bg-card text-card-foreground py-2">
           {navItems.slice(0, 4).map((item) => (
             <Button
               key={item.name}
               variant="ghost"
               className={`p-2 rounded ${
-                activeTab === item.name ? "bg-green-700" : ""
+                activeTab === item.name
+                  ? "bg-primary text-primary-foreground"
+                  : ""
               }`}
               onClick={() => onTabChange(item.name as any)}
             >

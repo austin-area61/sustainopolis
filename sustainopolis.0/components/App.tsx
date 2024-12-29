@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
+import { ThemeProvider } from "../contexts/ThemeContext";
 import Layout from "./Layout";
 import Dashboard from "./Dashboard";
 import CourseProgress from "./CourseProgress";
@@ -10,7 +13,6 @@ import Onboarding from "./Onboarding";
 import GlobalChallenges from "./GlobalChallenges";
 import RealLifeImpact from "./RealLifeImpact";
 import dynamic from "next/dynamic";
-import { ThemeProvider } from "../contexts/ThemeContext";
 
 const MotionDiv = dynamic(
   () => import("framer-motion").then((mod) => mod.motion.div),
