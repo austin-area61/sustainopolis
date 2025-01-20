@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Quicksand } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const quicksand = Quicksand({ subsets: ["latin"] });
 

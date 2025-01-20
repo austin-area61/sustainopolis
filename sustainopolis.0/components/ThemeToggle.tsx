@@ -1,27 +1,17 @@
-"use client";
-
+// ThemeToggle Component
 import React from "react";
-import { useTheme } from "../contexts/ThemeContext";
-import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
+    <button
       onClick={toggleTheme}
-      className="w-9 px-0"
+      className="p-2 border rounded-lg focus:outline-none"
     >
-      {theme === "light" ? (
-        <Moon className="h-[1.2rem] w-[1.2rem]" />
-      ) : (
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-      )}
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+      {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
+    </button>
   );
 };
 
